@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AREY CENTRAL DE BELLEZA Y CAPACITACIÓN</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background-color: #d9e5dd;
+      text-align: center;
+      padding: 1rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #4b6043;
+    }
+    header h2 {
+      margin: 0.5rem 0 0;
+      font-size: 1rem;
+      color: #765d69;
+    }
+    main {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+    }
+    select, input[type="text"], textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+    .hidden {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    button {
+      background-color: #a3cbb1;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #8ebfa0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AREY CENTRAL DE BELLEZA Y CAPACITACIÓN</h1>
+    <h2>Control de Ingresos y Egresos</h2>
+  </header>
+  <main>
+    <form id="movimientoForm">
+      <div class="form-group">
+        <label for="unidad">Unidad de negocio:</label>
+        <select id="unidad" required>
+          <option value="">Selecciona una opción</option>
+          <option>AREY Morelia</option>
+          <option>AREY Capacitación</option>
+          <option>AREY Foráneo</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="registro">Registró:</label>
+        <select id="registro" required>
+          <option value="">Selecciona una opción</option>
+          <option>Yera</option>
+          <option>Sara</option>
+          <option>Marlene</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de movimiento:</label>
+        <input type="radio" name="movimiento" value="Ingreso" onchange="mostrarOpciones()" required>Ingreso
+        <input type="radio" name="movimiento" value="Egreso" onchange="mostrarOpciones()">Egreso
+      </div>
+
+      <div id="tipoIngresoContainer" class="form-group hidden">
+        <label for="tipoIngreso">Tipo de ingreso (servicio o curso):</label>
+        <select id="tipoIngreso">
+          <option value="">Selecciona una opción</option>
+          <option>DELINEADO DE OJOS</option>
+          <option>DEPILACION CON CERA</option>
+          <option>EXTENCIONES DE PESTAÑAS</option>
+          <option>MASAJES</option>
+          <option>MICROPIGMENTACION DE CEJAS</option>
+          <option>MICROPIGMENTACION DE LABIOS</option>
+          <option>MICROPIGMETANTACION DE OJOS</option>
+          <option>PLASMA RICO EN PLAQUETAS</option>
+          <option>POWER BROWS</option>
+          <option>TRATAMIENTOS FACIALES</option>
+          <option>TRATAMIENTOS REDUCTIVOS</option>
+          <option>DEPILACION LASER</option>
+          <option>CURSO LABIOS Y OJOS</option>
+          <option>CURSO LABIOS</option>
+          <option>CURSO OJOS</option>
+          <option>CURSO DE CEJAS, LABIOS Y OJOS</option>
+          <option>CURSO MICROPICMENTACION DE CEJAS</option>
+          <option>CURSO CERA ESPAÑOLA</option>
+          <option>CURSO PRP, DERMAPEN Y BB GLOW</option>
+          <option>CURSO PRP</option>
+          <option>CURSO BOTOX</option>
+          <option>CURSO MICRO PUNTURA BRASILEÑA</option>
+          <option>CURSO DERMAPEN</option>
+          <option>CURSO BB GLOW</option>
+          <option>CURSO PLASMA PEN</option>
+          <option>CURSO MESOTERAPIA</option>
+          <option>CURSO DE PRIMEROS AUXILIOS</option>
+          <option>CURSO DE ASEPSIA Y ANTISEPSIA</option>
+          <option>DIPLOMADO DE AUXILIAR DE ENFERMERÍA</option>
+          <option>DIPLOMADO DE MICROPIGMENTACIÓN FACIAL</option>
+          <option>DIPLOMADO DE PODOLOGÍA</option>
+          <option>DIPLOMADO DERMOCOSMETOLOGIA</option>
+          <option value="otros">OTROS CURSOS (CUALQUIERA QUE NO ESTE EN ESTA LISTA)</option>
+        </select>
+      </div>
+
+      <div id="otrosDetalleContainer" class="form-group hidden">
+        <label for="otrosDetalle">Especificar servicio o curso cobrado:</label>
+        <textarea id="otrosDetalle" rows="3"></textarea>
+      </div>
+
+      <button type="submit">Registrar Movimiento</button>
+    </form>
+  </main>
+
+  <script>
+    const movimientoRadios = document.querySelectorAll('input[name="movimiento"]');
+    const tipoIngresoContainer = document.getElementById('tipoIngresoContainer');
+    const tipoIngreso = document.getElementById('tipoIngreso');
+    const otrosDetalleContainer = document.getElementById('otrosDetalleContainer');
+
+    function mostrarOpciones() {
+      const seleccionado = document.querySelector('input[name="movimiento"]:checked').value;
+      tipoIngresoContainer.classList.toggle('hidden', seleccionado !== 'Ingreso');
+    }
+
+    tipoIngreso.addEventListener('change', () => {
+      otrosDetalleContainer.classList.toggle('hidden', tipoIngreso.value !== 'otros');
+    });
+
+    document.getElementById('movimientoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Movimiento registrado (conectarse a Google Apps Script aquí).');
+    });
+  </script>
+</body>
+</html>
